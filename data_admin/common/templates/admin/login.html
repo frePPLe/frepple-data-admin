@@ -1,0 +1,132 @@
+{% extends "admin/base_site.html" %}
+{% comment %}
+This template overrides one of the standard admin ones.
+The changes are:
+   - take care of url prefix
+   - give the login button a jquery-ui look and feel
+   - check for old versions of Internet Explorer
+{% endcomment %}
+{% load i18n %}
+
+{% block extrastyle %}{{block.super}}
+<style>
+  #headerbar {
+    background-color: transparent;
+  }
+  #login-form, #content {
+    margin-top: 0px;
+  }
+  body.login {
+    background: white;
+  }
+  .login #container {
+    border: none;
+  }
+
+</style>
+{% endblock %}
+
+{% block extrahead %}
+<script src="{{STATIC_URL}}js/jquery-3.4.1.min.js"></script>
+<script>
+$(function() {
+  if (!!window.MSInputMethodContext && !!document.documentMode) {
+    // You are using internet explorer.
+    // See http://stackoverflow.com/questions/21825157/internet-explorer-11-detection
+  	$("#row1").html(
+  	  '<br>Internet Explorer is no longer supported.<br>'
+      + 'Microsoft doesn\'t keep this browser up to date with the modern '
+      + 'web technologies used by frePPLe.<br><br>'
+      + 'Please Google <strong>Chrome<\/strong>, Mozilla <strong>Firefox<\/strong>, '
+      + 'Microsoft <strong>Edge<\/strong>, Apple <strong>Safari<\/strong> '
+      + 'or another modern browser.'
+      );
+  	$('#row2').hide();
+  }
+  else
+    $('#id_username').focus();
+
+  $("#login-form").on('submit', function() {
+    $("#id_password").val($.trim($("#id_password").val()));
+  });
+
+});
+</script>
+
+{% endblock %}
+
+
+
+{% block bodyclass %}login{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div class="row" style="padding-bottom: 30px; padding-top: 50px;">
+	<div class="col-xs-4 center-block" style="min-width: 200px; max-width:300px; float:none;">
+	 {% block branding %}{{ block.super }}{% endblock %}
+	</div>
+</div>
+
+<div class="row" id="content-main" >
+  <div id="row1" class="col-xs-4 center-block" style="min-width: 200px; max-width:300px; float:none; text-align:left;">
+		<form role="form" action="{{request.prefix}}{{app_path}}" method="post" id="login-form" >{% csrf_token %}
+		  <div class="form-group">
+		    {{ form.username.errors }}
+		    <label for="id_username" class="required">{{ form.username.label }}:</label>
+		    <input id="id_username" class="form-control" maxlength="254" name="username" type="text">
+		  </div>
+		  <div class="form-group">
+		    {{ form.password.errors }}
+		    <label for="id_password" class="required">{% trans 'Password'|capfirst %}:</label>
+		    <input id="id_password" class="form-control" name="password" type="password">
+		    <input type="hidden" name="next" value="{{ request.prefix }}{{ next }}" />
+		  </div>
+		  <div class="form-group text-center">
+		    <input type="submit" class="btn btn-lg btn-primary" value="{% trans 'Log in' %}"/>
+		  </div>
+	  {% setting "SESSION_COOKIE_AGE" as persistent_cookie %}
+	  {% if persistent_cookie %}
+      <div style="text-align: center; margin-bottom: 10px">		  
+		  <input type="checkbox" id="remember_me" name="remember_me" value="false">&nbsp;
+		  <label for="remember_me">{% trans "Remember Me" %}</label>
+      </div>
+      {% endif %}
+      <div style="text-align: center; margin-bottom: 10px">
+        <a href="/reset_password/"><u>{% trans "Forgot your password?" %}</u></a>
+      </div>
+		</form>
+	</div>
+</div>
+
+{% if form.errors and not form.non_field_errors %}
+<div class="row">
+<div class="col-xs-4 center-block alert alert-danger" role="alert" style="min-width: 200px; max-width:300px; float:none; text-align:center;">
+{% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}
+{% trans "Please correct the errors below." %}{% endif %}
+</div></div>
+{% endif %}
+
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<div class="row">
+<div class="col-xs-4 center-block alert alert-danger" role="alert" style="min-width: 200px; max-width:300px; float:none; text-align:center;">
+    {{ error }}
+</div></div>
+{% endfor %}
+{% endif %}
+
+{% checkPassword "admin" "admin" as recommend_reset %}
+{% if recommend_reset %}
+<div class="row" id="row2">
+<div class="col-xs-4 center-block alert alert-danger" role="alert" style="min-width: 200px; max-width:300px; float:none; text-align:center;">
+{% blocktrans %}The user "admin" has password "admin".<br>
+We suggest changing this password.{% endblocktrans %}
+</div>
+</div>
+{% endif %}
+{% endblock %}

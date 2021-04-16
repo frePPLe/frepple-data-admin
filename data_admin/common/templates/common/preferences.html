@@ -1,0 +1,139 @@
+{% extends "admin/base_site_nav.html" %} {% load i18n admin_list %} {% block extrahead %}{{block.super}}
+
+<style>
+  #content-main td {
+    padding-bottom: 1em;
+  }
+
+  #content-main th {
+    line-height: 2em;
+  }
+  
+  #content-main .control-label {
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  $(function() {
+    $("#id_languageul li a").click(function() {
+      $("#id_language span").text($(this).text());
+      $("#language").val($(this).prop('name'));
+    });
+    $("#id_themeul li a").click(function() {
+      $("#id_theme span").text($(this).text());
+      $("#theme").val($(this).prop('name'));
+    });
+  });
+</script>
+
+{% endblock %} {% block content_title %}
+<div class="row">
+  <div class="col-xs-12">
+    {% if title %}
+    <h1>{{ title }}</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} {% block content %}
+
+<div id="content-main">
+  <form action="." method="post" class="form" enctype="multipart/form-data">
+
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <input type="hidden" name="language" id="language" value="{{ request.user.language }}">
+    <input type="hidden" name="theme" id="theme" value="{{ request.user.theme }}">
+    {% if form.non_field_errors %}
+    <div  style="max-width: 500px" class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+        <label class="control-label" for="id_language">{% trans 'language'|capfirst%}:</label>
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        <div class="dropdown dropdown-submit-input">
+          <button class="btn btn-default dropdown-toggle form-control" id="id_language" name="language" value="" type="button" data-toggle="dropdown">
+            <span>{{ LANGUAGE }}</span>&nbsp;&nbsp;
+            <i class="caret"></i>
+          </button>
+          <ul class="dropdown-menu col-xs-12" aria-labelledby="id_language" id="id_languageul">
+            {% for i,j in request.user.languageList %}
+            <li><a name="{{ i }}">{{ j }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+        <label class="control-label" for="id_pagesize">{% trans 'page size'|capfirst%}:</label>
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        <input class="form-control" id="id_pagesize" min="-7" max="10009999" name="pagesize" type="number" value="{{ request.user.pagesize }}">
+        <span class="text-muted">{% trans "Number of records per page" %}</span>
+      </div>
+    </div>
+
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+        <label class="control-label" for="id_theme">{% trans 'theme'|capfirst%}:</label>
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        <div class="dropdown dropdown-submit-input">
+          <button class="btn btn-default dropdown-toggle form-control" id="id_theme" name="theme" value="" type="button" data-toggle="dropdown">
+            <span>{% filter capfirst %}{{ request.user.theme }}{%endfilter%}</span>&nbsp;&nbsp;
+            <i class="caret"></i>
+          </button>
+          <ul class="dropdown-menu col-xs-12" aria-labelledby="id_theme" id="id_themeul">
+            {% for j in THEMES %}
+            <li><a name="{{j}}">{% filter capfirst %}{{j}}{%endfilter%}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+        <label class="control-label" for="id_avatar">{% trans 'avatar'|capfirst%}:</label>
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        {% if request.user.avatar %}<img style="border-radius: 50%; width:100px; height:100px" src="{{request.user.avatar.url}}">
+        {% else %}<i style="font-size: 8em" class="fa fa-user-circle-o"></i>
+        {% endif %}
+        <input data-toggle="tooltip" data-html="true" type="file" name="avatar" accept="image/*" id="id_avatar"
+          data-original-title="{% trans "Upload a square picture of yourself.<br>Accepted formats are jpeg, png and gif.<br>Max file size is 100kB." %}">
+      </div>
+    </div>
+
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+        <label class="control-label" for="id_cur_password">{% trans 'Change password'|capfirst%}:</label>
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        <input class="form-control" id="id_cur_password" name="cur_password" type="password" autocomplete="off" placeholder=" {% trans "Old password"|escape %} " style="margin-bottom: 10px">
+        <input class="form-control" id="id_new_password1" name="new_password1" type="password" autocomplete="off" placeholder=" {% trans "New password"|escape %} " style="margin-bottom: 10px">
+        <input class="form-control" id="id_new_password2" name="new_password2" type="password" autocomplete="off" placeholder=" {% trans "New password confirmation"|escape %} " style="margin-bottom: 10px">
+      </div>
+      <div class="col-xs-12">
+        {% if form.new_password1.help_text %}
+        <div>
+          {% autoescape off %}{{ form.new_password1.help_text }}{% endautoescape %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row" style="padding-bottom: 20px;">
+      <div class="col-xs-3" style="max-width:150px; text-align: right">
+      </div>
+      <div class="col-xs-9" style="max-width:260px">
+        <input type="submit" value="{% trans "Save" %}" class="btn btn-primary">
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

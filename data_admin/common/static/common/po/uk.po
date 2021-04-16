@@ -1,0 +1,645 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-12-12 16:36+0100\n"
+"Last-Translator: \n"
+"Language-Team: Michael Nasonov <info@ivc-inform.ru>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: freppledb/forecast/static/forecast/forecast.html:383
+msgid "Automatic"
+msgstr "Автоматичний"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:892
+msgid "Available Cross"
+msgstr "Доступний крос"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:902
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:875
+msgid "Close"
+msgstr "Закрити"
+
+#: freppledb/forecast/static/forecast/forecast.html:62
+msgid "Configure time buckets"
+msgstr "налаштувати період часу"
+
+#: freppledb/forecast/static/forecast/forecast.html:79
+#: freppledb/forecast/static/forecast/src/forecast.js:878
+msgid "Customize"
+msgstr "Налаштувати"
+
+#: freppledb/forecast/static/forecast/src/forecastgridDrv.js:36
+msgid "Demand outlier"
+msgstr "відхилення попиту"
+
+#: freppledb/forecast/static/forecast/forecast.html:450
+#: freppledb/input/static/operationplandetail/operationplandetail.html:53
+#: freppledb/planningboard/static/planningboard/planningboard.html:133
+msgid "Do you want to save your changes first?"
+msgstr "Ви хочете спочатку зберегти свої зміни?"
+
+#: freppledb/forecast/static/forecast/forecast.html:372
+msgid "Forecast method"
+msgstr "Метод прогнозу"
+
+#: freppledb/forecast/static/forecast/forecast.html:82
+#: freppledb/planningboard/static/planningboard/planningboard.html:71
+msgid "Help"
+msgstr "Допомога"
+
+#: freppledb/forecast/static/forecast/forecast.html:408
+msgid "Manual"
+msgstr "вручну"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:901
+msgid "OK"
+msgstr "OK"
+
+#: freppledb/forecast/static/forecast/forecast.html:156
+msgid "Recalculate"
+msgstr "Перерахувати"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:267
+#: freppledb/planningboard/static/planningboard/planningboard.html:346
+#: freppledb/planningboard/static/planningboard/planningboard.html:470
+#: freppledb/planningboard/static/planningboard/planningboard.html:594
+#: freppledb/planningboard/static/planningboard/planningboard.html:720
+msgid "Remove"
+msgstr "Видалити"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:903
+msgid "Reset"
+msgstr "Скидання"
+
+#: freppledb/forecast/static/forecast/forecast.html:153
+#: freppledb/forecast/static/forecast/forecast.html:454
+#: freppledb/input/static/operationplandetail/operationplandetail.html:61
+#: freppledb/planningboard/static/planningboard/planningboard.html:141
+#: freppledb/planningboard/static/planningboard/planningboard.html:153
+msgid "Save"
+msgstr "Збережіть"
+
+#: freppledb/forecast/static/forecast/src/forecast.js:884
+msgid "Selected Cross"
+msgstr "Вибраний крос"
+
+#: freppledb/forecast/static/forecast/forecast.html:154
+msgid "Undo"
+msgstr "Скасувати"
+
+#: freppledb/planningboard/static/planningboard/src/grid.js:45
+msgid "action"
+msgstr "дії"
+
+#: freppledb/forecast/static/forecast/forecast.html:375
+msgid "aggregate"
+msgstr "сукупність"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:122
+#: freppledb/planningboard/static/planningboard/planningboard.html:433
+#: freppledb/planningboard/static/planningboard/planningboard.html:559
+#: freppledb/planningboard/static/planningboard/planningboard.html:683
+msgid "approved"
+msgstr "затверджено"
+
+#: freppledb/forecast/static/forecast/forecast.html:164
+#: freppledb/planningboard/static/planningboard/planningboard.html:158
+msgid "attributes"
+msgstr "атрибути"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:167
+#: freppledb/planningboard/static/planningboard/planningboard.html:190
+msgid "buffer"
+msgstr "буфер"
+
+#: freppledb/quoting/static/quoting/quoting.html:98
+msgid "cancel"
+msgstr "скасувати"
+
+#: freppledb/planningboard/static/planningboard/src/grid.js:274
+#: freppledb/planningboard/static/planningboard/src/grid.js:335
+msgid "category"
+msgstr "категорія"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:125
+#: freppledb/planningboard/static/planningboard/planningboard.html:448
+#: freppledb/planningboard/static/planningboard/planningboard.html:572
+#: freppledb/planningboard/static/planningboard/planningboard.html:697
+msgid "closed"
+msgstr "зачинено"
+
+#: freppledb/forecast/static/forecast/forecast.html:170
+msgid "comments"
+msgstr "коментарі"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:124
+#: freppledb/planningboard/static/planningboard/planningboard.html:443
+#: freppledb/planningboard/static/planningboard/planningboard.html:567
+#: freppledb/planningboard/static/planningboard/planningboard.html:692
+msgid "completed"
+msgstr "виконано"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:68
+msgid "configure time buckets"
+msgstr "налаштувати період часу"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:123
+#: freppledb/planningboard/static/planningboard/planningboard.html:438
+#: freppledb/planningboard/static/planningboard/planningboard.html:563
+#: freppledb/planningboard/static/planningboard/planningboard.html:688
+msgid "confirmed"
+msgstr "підтверджено"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:40
+msgid "cost"
+msgstr "вартість"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:97
+#: freppledb/planningboard/static/planningboard/planningboard.html:18
+#: freppledb/planningboard/static/planningboard/planningboard.html:412
+#: freppledb/planningboard/static/planningboard/planningboard.html:538
+#: freppledb/planningboard/static/planningboard/planningboard.html:658
+#: freppledb/planningboard/static/planningboard/planningboard.html:742
+#: freppledb/planningboard/static/planningboard/planningboard.html:795
+msgid "criticality"
+msgstr "критичність"
+
+#: freppledb/input/static/operationplandetail/src/supplypositionpanelDrv.js:63
+msgid "current onhand"
+msgstr "поточна наявність"
+
+#: freppledb/forecast/static/forecast/forecast.html:202
+#: freppledb/planningboard/static/planningboard/planningboard.html:838
+#: freppledb/planningboard/static/planningboard/src/grid.js:89
+#: freppledb/quoting/static/quoting/quoting.html:40
+msgid "customer"
+msgstr "замовник"
+
+#: freppledb/forecast/static/forecast/forecast.html:120
+msgid "customers"
+msgstr "замовники"
+
+#: freppledb/input/static/operationplandetail/src/bufferspanelDrv.js:37
+#: freppledb/planningboard/static/planningboard/planningboard.html:1098
+#: freppledb/planningboard/static/planningboard/planningboard.html:1142
+#: freppledb/planningboard/static/planningboard/planningboard.html:1143
+#: freppledb/planningboard/static/planningboard/planningboard.html:279
+#: freppledb/planningboard/static/planningboard/src/ganttchart.js:1095
+msgid "date"
+msgstr "дата"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1436
+#: freppledb/planningboard/static/planningboard/planningboard.html:1470
+#: freppledb/planningboard/static/planningboard/planningboard.html:1504
+#: freppledb/planningboard/static/planningboard/planningboard.html:1539
+msgid "default"
+msgstr "за замовчуванням"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:104
+#: freppledb/planningboard/static/planningboard/planningboard.html:21
+#: freppledb/planningboard/static/planningboard/planningboard.html:418
+#: freppledb/planningboard/static/planningboard/planningboard.html:544
+#: freppledb/planningboard/static/planningboard/planningboard.html:666
+#: freppledb/planningboard/static/planningboard/planningboard.html:801
+#: freppledb/planningboard/static/planningboard/src/grid.js:163
+msgid "delay"
+msgstr "затримка"
+
+#: freppledb/planningboard/static/planningboard/src/grid.js:149
+msgid "delivery date"
+msgstr "Дата доставки"
+
+#: freppledb/input/static/operationplandetail/src/demandpeggingpanelDrv.js:28
+#: freppledb/planningboard/static/planningboard/planningboard.html:161
+#: freppledb/planningboard/static/planningboard/planningboard.html:188
+#: freppledb/planningboard/static/planningboard/planningboard.html:762
+msgid "demand"
+msgstr "попит"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1206
+msgid "demands"
+msgstr "попити"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:368
+#: freppledb/planningboard/static/planningboard/planningboard.html:492
+#: freppledb/planningboard/static/planningboard/planningboard.html:618
+#: freppledb/planningboard/static/planningboard/planningboard.html:986
+#: freppledb/quoting/static/quoting/quoting.html:171
+#: freppledb/quoting/static/quoting/quoting.html:198
+#: freppledb/quoting/static/quoting/quoting.html:21
+msgid "description"
+msgstr "опис"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:57
+msgid "destination"
+msgstr "одержувач"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:193
+msgid "distribution order"
+msgstr "замовлення розподілу"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:40
+msgid "distribution orders"
+msgstr "замовлення розподілу"
+
+#: freppledb/input/static/operationplandetail/src/demandpeggingpanelDrv.js:35
+#: freppledb/planningboard/static/planningboard/planningboard.html:1218
+#: freppledb/planningboard/static/planningboard/planningboard.html:848
+#: freppledb/planningboard/static/planningboard/src/grid.js:126
+msgid "due"
+msgstr "термін"
+
+#: freppledb/forecast/static/forecast/forecast.html:298
+msgid "edit"
+msgstr "змінити"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:48
+msgid "effective end"
+msgstr "дата завершення"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:46
+msgid "effective start"
+msgstr "дата початку"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:76
+#: freppledb/quoting/static/quoting/quoting.html:133
+#: freppledb/quoting/static/quoting/quoting.html:177
+msgid "end date"
+msgstr "Дата закінчення"
+
+#: freppledb/input/static/operationplandetail/src/bufferspanelDrv.js:35
+msgid "expected onhand"
+msgstr "очікується на руках"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:126
+msgid "export"
+msgstr "експорт"
+
+#: freppledb/forecast/static/forecast/forecast.html:65
+msgid "favorites"
+msgstr "обране"
+
+#: freppledb/forecast/static/forecast/forecast.html:139
+#: freppledb/forecast/static/forecast/forecast.html:167
+msgid "forecast"
+msgstr "прогноз"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:198
+msgid "forecast baseline"
+msgstr "базовий прогноз"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:206
+msgid "forecast consumed"
+msgstr "споживаний прогноз"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:204
+msgid "forecast net"
+msgstr "чистий прогноз"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:200
+msgid "forecast override"
+msgstr "перевизначення прогнозу"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:202
+msgid "forecast total"
+msgstr "прогноз загальний"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:482
+msgid "identifier"
+msgstr "ідентифікатор"
+
+#: freppledb/quoting/static/quoting/quoting.html:94
+msgid "inquiry"
+msgstr "запит"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:194
+msgid "inventory"
+msgstr "запаси"
+
+#: freppledb/input/static/operationplandetail/src/supplypositionpanelDrv.js:22
+#: freppledb/planningboard/static/planningboard/planningboard.html:27
+msgid "inventory status"
+msgstr "статус запасу"
+
+#: freppledb/forecast/static/forecast/forecast.html:186
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:40
+#: freppledb/input/static/operationplandetail/src/demandpeggingpanelDrv.js:33
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:32
+#: freppledb/planningboard/static/planningboard/planningboard.html:1215
+#: freppledb/planningboard/static/planningboard/planningboard.html:857
+#: freppledb/planningboard/static/planningboard/planningboard.html:946
+#: freppledb/planningboard/static/planningboard/src/grid.js:324
+#: freppledb/planningboard/static/planningboard/src/grid.js:78
+#: freppledb/quoting/static/quoting/quoting.html:27
+msgid "item"
+msgstr "товар"
+
+#: freppledb/forecast/static/forecast/forecast.html:107
+msgid "items"
+msgstr "товари"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:38
+msgid "lead time"
+msgstr "тривалість циклу"
+
+#: freppledb/forecast/static/forecast/forecast.html:218
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:48
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:58
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:34
+#: freppledb/planningboard/static/planningboard/planningboard.html:867
+#: freppledb/planningboard/static/planningboard/planningboard.html:920
+#: freppledb/planningboard/static/planningboard/planningboard.html:956
+#: freppledb/planningboard/static/planningboard/src/grid.js:263
+#: freppledb/planningboard/static/planningboard/src/grid.js:353
+#: freppledb/planningboard/static/planningboard/src/grid.js:67
+#: freppledb/quoting/static/quoting/quoting.html:53
+msgid "location"
+msgstr "місце розташування"
+
+#: freppledb/forecast/static/forecast/forecast.html:94
+msgid "locations"
+msgstr "місця розташування"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:191
+msgid "manufacturing order"
+msgstr "замовлення в виробництво"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:42
+msgid "manufacturing orders"
+msgstr "замовлення в виробництво"
+
+#: freppledb/input/static/operationplandetail/src/bufferspanelDrv.js:28
+#: freppledb/planningboard/static/planningboard/planningboard.html:1083
+#: freppledb/planningboard/static/planningboard/planningboard.html:187
+msgid "material"
+msgstr "матеріал"
+
+#: freppledb/quoting/static/quoting/quoting.html:73
+msgid "minimum shipment"
+msgstr "мінімальна відвантаження"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:26
+#: freppledb/input/static/operationplandetail/src/bufferspanelDrv.js:31
+#: freppledb/input/static/operationplandetail/src/demandpeggingpanelDrv.js:31
+#: freppledb/input/static/operationplandetail/src/problemspanelDrv.js:32
+#: freppledb/input/static/operationplandetail/src/resourcespanelDrv.js:31
+#: freppledb/planningboard/static/planningboard/planningboard.html:1022
+#: freppledb/planningboard/static/planningboard/planningboard.html:1089
+#: freppledb/planningboard/static/planningboard/planningboard.html:1212
+#: freppledb/planningboard/static/planningboard/planningboard.html:256
+#: freppledb/planningboard/static/planningboard/planningboard.html:313
+#: freppledb/planningboard/static/planningboard/planningboard.html:462
+#: freppledb/planningboard/static/planningboard/planningboard.html:585
+#: freppledb/planningboard/static/planningboard/planningboard.html:711
+#: freppledb/planningboard/static/planningboard/planningboard.html:752
+#: freppledb/planningboard/static/planningboard/planningboard.html:811
+#: freppledb/planningboard/static/planningboard/planningboard.html:907
+#: freppledb/planningboard/static/planningboard/planningboard.html:934
+#: freppledb/planningboard/static/planningboard/src/grid.js:251
+#: freppledb/planningboard/static/planningboard/src/grid.js:312
+#: freppledb/planningboard/static/planningboard/src/grid.js:55
+#: freppledb/quoting/static/quoting/quoting.html:15
+msgid "name"
+msgstr "назва"
+
+#: freppledb/forecast/static/forecast/forecast.html:242
+msgid "new item comment"
+msgstr "новий елемент коментаря"
+
+#: freppledb/forecast/static/forecast/forecast.html:243
+msgid "new item-location comment"
+msgstr "новий коментар до місця розташування"
+
+#: freppledb/forecast/static/forecast/forecast.html:244
+msgid "new location comment"
+msgstr "новий коментар про місцезнаходження"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:36
+#: freppledb/planningboard/static/planningboard/planningboard.html:1095
+#: freppledb/planningboard/static/planningboard/planningboard.html:1137
+#: freppledb/planningboard/static/planningboard/planningboard.html:1138
+#: freppledb/planningboard/static/planningboard/planningboard.html:295
+#: freppledb/planningboard/static/planningboard/planningboard.html:966
+#: freppledb/planningboard/static/planningboard/src/ganttchart.js:1094
+msgid "onhand"
+msgstr "під рукою"
+
+#: freppledb/input/static/operationplandetail/src/supplypositionpanelDrv.js:29
+msgid "onhand at lead time"
+msgstr "одразу під час проведення"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:194
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:215
+msgid "open orders"
+msgstr "відкриті замовлення"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1131
+msgid "operation"
+msgstr "операція"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1122
+msgid "operationplans"
+msgstr "плану операцій"
+
+#: freppledb/quoting/static/quoting/quoting.html:117
+msgid "operations"
+msgstr "операції"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:64
+msgid "ordering date"
+msgstr "дата замовлення"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:196
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:217
+msgid "orders adjustment"
+msgstr "коригування замовлень"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:52
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:36
+#: freppledb/planningboard/static/planningboard/planningboard.html:606
+msgid "origin"
+msgstr "походження"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:44
+msgid "overdue sales orders"
+msgstr "прострочені замовлення на продаж"
+
+#: freppledb/forecast/static/forecast/forecast.html:367
+msgid "parameters"
+msgstr "параметри"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:219
+msgid "past forecast"
+msgstr "минулий прогноз"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:32
+#: freppledb/planningboard/static/planningboard/planningboard.html:24
+#: freppledb/planningboard/static/planningboard/planningboard.html:883
+#: freppledb/planningboard/static/planningboard/src/grid.js:100
+msgid "priority"
+msgstr "пріоритет"
+
+#: freppledb/input/static/operationplandetail/src/problemspanelDrv.js:29
+#: freppledb/planningboard/static/planningboard/planningboard.html:980
+#: freppledb/quoting/static/quoting/quoting.html:165
+msgid "problems"
+msgstr "проблеми"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:121
+#: freppledb/planningboard/static/planningboard/planningboard.html:428
+#: freppledb/planningboard/static/planningboard/planningboard.html:554
+#: freppledb/planningboard/static/planningboard/planningboard.html:678
+msgid "proposed"
+msgstr "запропоновано"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:192
+msgid "purchase order"
+msgstr "замовлення на придбання"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:38
+msgid "purchase orders"
+msgstr "замовлення на купівлю"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:89
+#: freppledb/input/static/operationplandetail/src/bufferspanelDrv.js:33
+#: freppledb/input/static/operationplandetail/src/demandpeggingpanelDrv.js:37
+#: freppledb/input/static/operationplandetail/src/resourcespanelDrv.js:33
+#: freppledb/planningboard/static/planningboard/planningboard.html:1025
+#: freppledb/planningboard/static/planningboard/planningboard.html:1092
+#: freppledb/planningboard/static/planningboard/planningboard.html:1134
+#: freppledb/planningboard/static/planningboard/planningboard.html:1221
+#: freppledb/planningboard/static/planningboard/planningboard.html:220
+#: freppledb/planningboard/static/planningboard/planningboard.html:287
+#: freppledb/planningboard/static/planningboard/planningboard.html:402
+#: freppledb/planningboard/static/planningboard/planningboard.html:528
+#: freppledb/planningboard/static/planningboard/planningboard.html:648
+#: freppledb/planningboard/static/planningboard/planningboard.html:732
+#: freppledb/planningboard/static/planningboard/planningboard.html:786
+#: freppledb/planningboard/static/planningboard/planningboard.html:893
+#: freppledb/planningboard/static/planningboard/src/ganttchart.js:1093
+#: freppledb/planningboard/static/planningboard/src/grid.js:113
+#: freppledb/quoting/static/quoting/quoting.html:127
+#: freppledb/quoting/static/quoting/quoting.html:67
+msgid "quantity"
+msgstr "кількість"
+
+#: freppledb/quoting/static/quoting/quoting.html:96
+msgid "quote"
+msgstr "квота"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:77
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:78
+msgid "receipt date"
+msgstr "дата отримання"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:36
+#: freppledb/planningboard/static/planningboard/planningboard.html:1128
+#: freppledb/planningboard/static/planningboard/planningboard.html:358
+#: freppledb/planningboard/static/planningboard/planningboard.html:612
+#: freppledb/planningboard/static/planningboard/src/ganttchart.js:1090
+msgid "reference"
+msgstr "рефер."
+
+#: freppledb/input/static/operationplandetail/src/resourcespanelDrv.js:28
+#: freppledb/planningboard/static/planningboard/planningboard.html:164
+#: freppledb/planningboard/static/planningboard/planningboard.html:189
+msgid "resource"
+msgstr "ресурс"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1016
+msgid "resources"
+msgstr "ресурси"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:46
+msgid "sales orders"
+msgstr "замовлення на продаж"
+
+#: freppledb/forecast/static/forecast/forecast.html:74
+msgid "save"
+msgstr "збережіть"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:1028
+msgid "setup"
+msgstr "налаштування"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:65
+msgid "shipping date"
+msgstr "дата відправлення"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:42
+msgid "size minimum"
+msgstr "розмір мінімум"
+
+#: freppledb/input/static/operationplandetail/src/supplyinformationDrv.js:44
+msgid "size multiple"
+msgstr "розмір кратний"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:63
+#: freppledb/quoting/static/quoting/quoting.html:130
+#: freppledb/quoting/static/quoting/quoting.html:174
+msgid "start date"
+msgstr "дата початку"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:118
+#: freppledb/planningboard/static/planningboard/planningboard.html:228
+#: freppledb/planningboard/static/planningboard/planningboard.html:424
+#: freppledb/planningboard/static/planningboard/planningboard.html:550
+#: freppledb/planningboard/static/planningboard/planningboard.html:674
+#: freppledb/quoting/static/quoting/quoting.html:91
+msgid "status"
+msgstr "статус"
+
+#: freppledb/planningboard/static/planningboard/src/grid.js:283
+#: freppledb/planningboard/static/planningboard/src/grid.js:344
+msgid "subcategory"
+msgstr "підкатегорія"
+
+#: freppledb/input/static/operationplandetail/src/networkstatusDrv.js:61
+msgid "superseded"
+msgstr "витіснили"
+
+#: freppledb/input/static/operationplandetail/operationplanpanel.html:44
+#: freppledb/planningboard/static/planningboard/planningboard.html:498
+msgid "supplier"
+msgstr "постачальник"
+
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:192
+#: freppledb/forecast/static/forecast/src/displayForecastGraph.js:213
+msgid "total orders"
+msgstr "загальна кількість замовлень"
+
+#: freppledb/quoting/static/quoting/quoting.html:193
+msgid "why short or late?"
+msgstr "які відхилення?"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:53
+msgid "zoom in"
+msgstr "збільшувати"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:56
+msgid "zoom out"
+msgstr "зменшення"
+
+#: freppledb/planningboard/static/planningboard/planningboard.html:196
+msgid "{{ aggregatedoperationplans.count }} selected"
+msgstr ""
+
+#: freppledb/forecast/static/forecast/forecast.html:316
+msgid "{{m.label}}"
+msgstr "{{m.label}}"

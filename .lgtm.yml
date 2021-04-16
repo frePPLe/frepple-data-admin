@@ -1,0 +1,15 @@
+extraction:
+  python:
+    python_setup:
+      requirements_files: requirements.txt
+      version: 3
+      setup_py: false
+  javascript:
+    index:
+      exclude:
+        - "data-admin/common/static/js/angular*.js"
+        - "data-admin/common/static/js/*.src.js"
+        - "data-admin/common/static/js/jquery.jqgrid.src.js"
+        - "data-admin/common/static/js/d3.js"
+        - "data-admin/common/static/js/bootstrap.js"
+      typescript: none

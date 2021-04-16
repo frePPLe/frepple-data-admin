@@ -1,0 +1,350 @@
+{% extends "admin/base_site_nav.html" %}
+{% load i18n %}
+
+{% block filter %}{% if reportclass.filterable %}
+&nbsp;<span id="filterform">
+<span id="curfilter"></span>
+&nbsp;
+<div class="input-group">
+<input id="addsearch" class="form-control" placeholder="{% trans 'Filter' %}" role="searchbox"
+  type="text" size="15" oninput="grid.showFilterList(this)" onkeydown="grid.keyDownSearch(event)">
+<span class="input-group-btn">
+<button class="btn btn-default fa fa-search" onclick="event.stopPropagation(); grid.showFilter()"
+  data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Filter editor" %}"/>
+</span>
+</div>
+</span>
+{% endif %}{% endblock %}
+          
+{% block extrahead %}{{block.super}}
+<script>
+
+var reportkey = '{{reportkey|safe}}';
+var initialfilter{% if filters %} = {{filters|json}}{% endif %};
+var favorites = {% if preferences.favorites %}{{preferences.favorites|json}}{% else %}{}{% endif %};
+var default_sort = "{{default_sort|safe}}";
+var preferences = {{preferences|json}};
+var resizing;
+var editrow;
+var editcol;
+var currency = "";
+
+{% if reportclass.hasTimeBuckets %}var numbuckets = {{request.report_bucketlist|length}};
+{% endif %}
+
+var actions = { {% for i in actions %}
+   "{{ i.name|escape }}": function() { {{ i.function|safe }} }{% if not forloop.last %},{% endif %}{% endfor %}
+   };
+
+function displayGrid(load) {
+  jQuery("#grid").jqGrid({
+   	url: (location.href.indexOf("#") != -1 ? location.href.substr(0,location.href.indexOf("#")) : location.href)
+   	  + (location.search.length > 0 ? "&format=json" : "?format=json"),
+	  datatype: (load || load === undefined) ? "json" : "local",
+	  jsonReader : {repeatitems:false},
+    colModel:[{{colmodel|safe}}],
+   	rowNum: {{request.pagesize}},
+   	autoencode: true,{% if is_popup %}
+    onSelectRow: grid.setSelectedRow,{% elif reportclass.editable and haschangeperm %}
+    cellEdit: true,
+    cellsubmit: 'clientArray',
+    editurl: location.pathname,
+    afterEditCell: grid.afterEditCell,
+    beforeSaveCell: upload.select,{% else %}
+    onSelectRow: null,
+    singleSelectClickMode: "toggle",
+    multiselect: false, {% endif %}
+    pager: {% if reportclass.isTreeView %} null {% else %} '#gridpager' {% endif %},
+    iconSet: "fontAwesome",
+    guiStyle: "bootstrapPrimary",
+    viewrecords: true,
+    multiSort: true,
+    headertitles:true,
+    maxSortColumns: 3,
+    viewSort: true,
+    sortorder: "{{sord}}",
+    sortname: "{{sidx}}",
+    page: {{page}},
+    hidegrid: false,
+    resizeStop: grid.saveColumnConfiguration,
+    scrollRows: true,
+    onSortCol: grid.saveColumnConfiguration,
+    onPaging: grid.saveColumnConfiguration,
+    //scroll: 1,      // Enables scrolling over all records, instead of paging. But not compatible with frozen columns.
+    //sortable: true, // Allows columns to be dragged and dropped between positions. But not compatible with frozen columns
+    autowidth: true,
+    postData: initialfilter ? {filters: JSON.stringify(initialfilter)} : {},
+    search : true,
+    shrinkToFit: false,
+    searching: {
+      multipleSearch: true,
+      multipleGroup: true,
+      closeOnEscape: true,
+      searchOnEnter: true,
+      searchOperators: true,
+      zIndex: 5000,
+      width: 700
+    },
+    gridComplete: function() {
+      $('#grid [data-toggle="tooltip"]')
+        .tooltip({"delay": {"show": 500}, "container": "#workarea"})
+        .on('blur', function() {
+          $('#grid [data-toggle="tooltip"]').tooltip('hide');
+          });
+      },
+    loadError: function(xhr,st,err) {
+      if (xhr.status == 200)
+      {
+        $('#curerror').html("{{_('Warning: no data found')|escapejs}}");
+        $('#grid').clearGridData();
+      }
+      else
+        $('#curerror').html("{{_('Error')|escapejs}}" + ":&nbsp;" + xhr.status + "&nbsp;" + xhr.statusText);
+    },{% if reportclass.editable and reportclass.multiselect and not is_popup and hasaddperm %}
+    multiselect: true,
+    multiboxonly: true,
+    noCellSelection: true,
+    onSelectRow: function(rowid, status, e) {
+      var selection = $(this).jqGrid('getGridParam','selarrrow').slice(); //this makes this list a static list of values
+      grid.markSelectedRow(selection.length);
+    },
+    formatCell: function(rowid, cellname, value, iRow, iCol) {
+      editrow = iRow;
+      editcol = iCol;
+      return value;
+    },
+    beforeSelectRow: function (rowid, e) {
+    	var $this = $(this), rows = this.rows,
+            // get id of the previous selected row
+            startId = $this.jqGrid('getGridParam', 'selrow'),
+            startRow, endRow, iStart, iEnd, i;
+
+        if (!e.shiftKey) {
+            return true;
+        } else if (startId) {
+			
+        	startRow = rows.namedItem(startId);
+            endRow = rows.namedItem(rowid);
+            rowidIndex = endRow.rowIndex;
+        	var selRowIds = $this.jqGrid("getGridParam", "selarrrow");
+        	iStart = startRow.rowIndex;
+            iEnd = endRow.rowIndex;
+                
+            if (iStart == iEnd) {
+            	if ($.inArray(rows[iStart].id, selRowIds) >= 0) {
+        			$this.jqGrid('setSelection', rows[iStart].id, false);
+        		}
+            }
+                
+            for (i = Math.min(iStart, iEnd); i <= Math.max(iStart, iEnd); i++) {                   
+                if (i != rowidIndex) {
+             	if ($.inArray(rows[i].id, selRowIds) < 0) {
+                 	$this.jqGrid('setSelection', rows[i].id, false);                    
+                 }
+                }
+            	else {
+            		if ($.inArray(rows[i].id, selRowIds) >= 0) {
+            			$this.jqGrid('setSelection', rows[i].id, false);
+            		}
+            	}
+            }
+        }
+        return true;
+    },{% endif %}
+    loadComplete: function(data) {
+    	{% if reportclass.message_when_empty %}
+    	$("#grid_empty_message").remove();
+    	if (data.records == 0 && $(this).getGridParam("postData").filters === undefined)
+    		$(this).parent().append(
+    			`<div id="grid_empty_message" style="text-align:center; margin-top:5em">
+    			{% include reportclass.message_when_empty %}
+    			</div>`
+    			);
+    	{% endif %}
+    	$('#curerror').html("");
+      $(".invStatus").each( function(value) {
+        $(this).parent().css('background',$(this).css('background-color'));
+      });
+      upload.restoreSelection();
+    },
+    {% block extra_grid %}{% endblock %}
+    customSortOperations: {
+      win: {
+        operand: "within",
+        text: "within days",
+        filter: function (options) {
+          var v = options.item[options.cmName];
+          if (v === undefined || v === null || v === "") {
+            return true;
+          }
+        }
+      },
+      ico: {
+          operand: "is child of",
+          text: "is child of",
+          filter: function (options) {
+            var v = options.item[options.cmName];
+            if (v === undefined || v === null || v === "") {
+              return true;
+            }
+          }
+        },
+    },
+    height: {% if reportclass.height %}{% if "height" in preferences %}{{preferences.height}}{% else %}{{reportclass.height}}{% endif %}{% else %}Math.max(150, $(window).height() - $("#grid").offset().top - 63){% endif %}
+    });{% if reportclass.frozenColumns > 0 %}
+  jQuery("#grid").jqGrid('setFrozenColumns');{% endif %}{% if reportclass.multiselect and not is_popup %}
+  $('#cb_grid.cbox').click(grid.markAllRows);{% endif %}{% if reportclass.editable and haschangeperm %}
+  $("th").bindFirst('click', upload.validateSort);{% endif %}
+  {% if reportclass.height %}$("#grid").gridResize({
+    handles: 's', minHeight: {{reportclass.height}},
+    resize: function() {
+      // Save the configuration if we don't get any more resizing events in 200ms.
+      clearTimeout(resizing);
+      resizing = setTimeout(grid.saveColumnConfiguration, 200);
+      }
+    });
+  {% endif %}
+  var curfilter = $("#curfilter");
+  grid.getFilterGroup($("#grid"), initialfilter, true, curfilter);
+  }
+  
+  $(function() {
+    {% if reportclass.hasTimeBuckets and not bucketnames %}
+    $('#curerror').html("{% trans 'Error: Missing time buckets or bucket dates' %}");
+  {% else %}
+  {% block afterPageLoad %}displayGrid();{% endblock %}
+  {% endif %}
+  $("#grid").on('input', function(event) {
+    // to prevent firefox from triggering save/undo on checkbox select
+    if (!$(event.target).parent().hasClass('td_cbox')) {
+      $("#save").removeClass("btn-primary btn-danger").addClass("btn-danger").prop("disabled", false);
+      $("#undo").removeClass("btn-primary btn-danger").addClass("btn-danger").prop("disabled", false);
+    }
+	});
+
+	$(window).bind('resize', function() {
+    var h = $(window).height() - $("#grid").offset().top - 63;
+    if (h < 150) h = 150;
+    $("#grid")
+     .setGridWidth($('#content-main').width()){% if not reportclass.height %}
+     .setGridHeight(h){% endif %};
+	});
+
+	$("#horizonbucketsul li a").click(function(){
+	  $("#horizonbuckets1").html($(this).text() + '  <span class="caret"><\/span>');
+	  $("#horizonbuckets").val($(this).prop('name'));
+	});
+
+	$("#horizonunitul li a").click(function(){
+	  $("#horizonunit1").html($(this).text() + '  <span class="caret"><\/span>');
+	  $("#horizonunit").val($(this).prop('name'));
+	});
+
+  $("#actionsul li a").click(function(){
+    $("#actions1 span").text($(this).text());
+    $("#actions").val($(this).prop('name'));
+    grid.runAction($(this).prop('name'));
+  });
+
+  {% if reportclass.editable and reportclass.multiselect and not is_popup and hasaddperm %}
+  if (isDragnDropUploadCapable()) {
+    $("#content-main").on('dragover', function(e) {
+      if (e.originalEvent.dataTransfer.types) {
+        for (var i = 0; i < e.originalEvent.dataTransfer.types.length; i++) {
+          if (e.originalEvent.dataTransfer.types[i] == "Files") {
+            $("#content-main").addClass("dropfile");
+            e.stopPropagation();
+            e.preventDefault();
+            }
+        }
+      }});
+    $("#content-main").on('dragleave', function(e) {
+  	  $("#content-main").removeClass("dropfile");
+  	  e.stopPropagation();
+  	  e.preventDefault();
+      });
+    $("#content-main").on('drop', function(e) {
+      if (e.originalEvent.dataTransfer.files.length > 0) {
+        import_show('', null, true, null, e.originalEvent.dataTransfer.files);
+  	    e.preventDefault();
+      }});
+  }
+  {% endif %}
+  });
+</script>
+{% endblock %}
+{% block content %}
+{% block before_table %}{% endblock %}
+
+<div class="row">
+
+<div id="save_undo" class="col-xs-5 form-inline">
+{% block save_undo_buttons %}
+{% if not is_popup and reportclass.editable and haschangeperm %}
+<input type="submit" value="{% filter force_escape|upper %}{% trans "Save" %}{% endfilter %}" class="btn btn-primary"  disabled role="button" id="save" onclick="upload.save()" title="{% trans 'save changes'|capfirst|force_escape %}">
+<input type="submit" value="{% filter force_escape|upper %}{% trans "Undo" %}{% endfilter %}" class="btn btn-primary"  disabled role="button" id="undo" onclick="upload.undo()" title="{% trans 'undo changes'|capfirst|force_escape %}">
+{% if actions %}
+<form class="form-addon" method="get" action="#" style="display: inline;" >
+  <input type="hidden" name="actions" id="actions" value="">
+  <div class="dropdown dropdown-submit-input" style="display: inline;">
+      <button disabled class="btn btn-default dropdown-toggle form-control" type="button" name="actions1" id="actions1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      <span>{% trans "select action"|capfirst %}</span>&nbsp;&nbsp;<i class="caret"></i>
+      </button>
+      <ul class="dropdown-menu" id="actionsul" aria-labelledby="actions1" style="top: auto;">
+      {% for i in  actions %}
+        <li><a onclick="" name="{{ i.name|escape }}">{% trans i.label|capfirst %}</a></li>
+      {% endfor %}
+      </ul>
+  </div>
+</form>
+{% endif %}
+{% endif %}
+{% endblock save_undo_buttons %}
+</div>
+
+<div id="toolicons" class="col-xs-4 hor-align-right ver-align-middle pull-right">{% block actions %}
+{% if reportclass.filterable %}
+<div class="btn-group" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'favorites'|capfirst|force_escape %}">
+  <button class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="fa fa-star"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" id="favoritelist">
+    {% if preferences.favorites %}
+    {% for fav in preferences.favorites %}
+    <li><a onclick="favorite.open(event)">{{fav}}<div style="float:right"><span class="fa fa-trash-o" onclick="favorite.remove(event)"></span></div></a></li>
+    {% endfor %}
+    <li role="separator" class="divider"></li>
+    {% endif %}
+    <li><a><button id="favoritesave" onclick="favorite.save()" type="button" class="btn btn-primary btn-xs disabled">{% trans "save"|capfirst %}</button>
+    <input id="favoritename" oninput="favorite.check()" type="text" size="15"></a>
+    </li>
+  </ul>
+</div>{% endif %}
+{% if hasaddperm %}<button class="btn btn-xs btn-primary" onclick="location.href='{{request.prefix}}/data/{{model|app_label}}/{{model|object_name|lower}}/add/{% if is_popup %}?_popup=1{% endif %}'" data-toggle="tooltip" data-placement="top" data-original-title="{% trans "Create new object"|escape %}" ><span class="fa fa-plus"></span></button>
+{% if not is_popup %}<button class="btn btn-xs btn-primary"  disabled id="copy_selected" onclick="grid.showCopy()" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Copy selected objects'|escape %}" ><span class="fa fa-copy"></span></button>
+{% endif %}{% endif %}{% if hasdeleteperm and not is_popup %}<button class="btn btn-xs btn-primary" id="delete_selected" disabled data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Delete selected objects'|escape %}" onclick="grid.showDelete('{{request.prefix}}/data/{{model|app_label}}/{{model|object_name|lower}}/')" ><span class="fa fa-minus"></span></button>
+{% endif %}{% if reportclass.hasTimeBuckets %}<button class="btn btn-xs btn-primary" onclick="grid.showBucket()" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Configure time buckets'|escape %}" id="bucketconfig"><span class="fa fa-clock-o"></span></button>
+{% endif %}{% if hasaddperm %}<button class="btn btn-xs btn-primary" id="csvimport" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'Import CSV or Excel file'|force_escape %}" onclick="import_show('', undefined, true)"><span class="fa fa-arrow-up"></span></button>
+{% endif %}<button class="btn btn-xs btn-primary" onclick="grid.showExport(true,{{ scenario_permissions }})" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'export as CSV or Excel file'|capfirst|force_escape %}"><span class="fa fa-arrow-down"></span></button>
+<button id="customize" class="btn btn-xs btn-primary" onclick="grid.showCustomize(false);" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'customize'|capfirst|force_escape %}"><span class="fa fa-wrench"></span></button>{% endblock %}
+{% if reportclass.help_url %}<button class="btn btn-xs btn-primary" onclick="window.open('{% setting "DOCUMENTATION_URL" %}/docs/{% version_short %}/{{reportclass.help_url}}');" data-toggle="tooltip" data-placement="top" data-original-title="{% trans 'help'|capfirst|force_escape %}"><span class="fa fa-question"></span></button>{% endif %}
+</div>
+
+</div>
+
+{% block table %}
+<div class="row" id="main-row" style="text-align: center;">
+<div id="content-main" class="col-md-12" style="min-height: 150px; margin-top: 0.7em">
+<table id="grid" class="table table-striped" style="background-color: white"></table>
+<div id="gridpager"></div>
+</div>
+<span id="resize-handle" class="fa fa-bars handle" style="display: none;"></span>
+</div>
+{% endblock %}
+
+{% block after_table %}{% endblock %}
+
+{% if reportclass.hasTimeBuckets %}
+{% include "admin/subtemplate_timebuckets.html" %}
+{% endif %}
+{% endblock %}

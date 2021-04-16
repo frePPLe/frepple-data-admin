@@ -1,0 +1,214 @@
+{% extends "admin/base_site_nav.html" %}
+{% load i18n admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+
+function selectAll(event, el)
+{
+  var chck = $(el).prop("checked");
+  $("#messagelist").find(":checkbox").prop("checked", chck);
+}
+
+function selectMessage(ev, el) {
+  var chck = $(el).find(":checkbox");
+  chck.prop("checked", !chck.prop("checked"));
+  event.stopPropagation();
+}
+
+function markMessageRead(el, status) {
+  var data = [];
+  if (el) {
+    // Single message update
+    var msg = $(el).closest("tr");
+    status = msg.attr("data-status") == "U" ? "R" : "U";    
+  }
+  else
+    // Update all selected
+    var msg = $("#messagelist input:checked").closest("tr");
+  msg.each(function() {
+    data.push({
+       "id": $(this).attr("data-message"),
+       "status": status 
+       });
+    });
+  $.ajax({
+     url: url_prefix + "/inbox/",
+     data: JSON.stringify(data),
+     type: "POST",
+     contentType: "application/json",
+     success: function () {
+       if (status == "R") {
+         msg.attr("data-status", "R");
+         msg.find(".msg-status .btn.fa")
+           .removeClass("fa-envelope-o")
+           .addClass("fa-envelope-open-o")
+           .attr("data-original-title", gettext("Mark message unread"));
+       }
+       else if (status == "D") {
+         msg.remove();
+       }
+       else {
+         msg.attr("data-status", "U");
+         msg.find(".msg-status .btn.fa")
+           .removeClass("fa-envelope-open-o")
+           .addClass("fa-envelope-o")
+           .attr("data-original-title", gettext("Mark message read"));
+       }
+       getUnreadMessages();
+     }
+   });
+}
+
+</script>
+{% endblock %}
+
+{% block tools %}
+<h1 class="pull-right">
+<button class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="top"
+  onclick="window.open('{% setting "DOCUMENTATION_URL" %}/docs/{% version_short %}/user-interface/getting-around/inbox.html')"
+  data-original-title="{% trans 'help'|capfirst|force_escape %}">
+  <span class="fa fa-question"></span>
+</button>
+</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-md-4">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary{% if not unread %} active{% else %}" onclick="window.location = '?unread=false'{% endif %}">
+      {% trans "All" %}
+    </button>
+    <button type="button" class="btn btn-primary{% if unread %} active{% else %}" onclick="window.location = '?unread=true'{% endif %}">
+      {% trans "Unread" %}
+    </button>
+  </div>
+</div>
+<div id="tabs" class="col-md-8 form-inline hor-align-right">
+<ul class="nav nav-tabs">
+<li class="active" role="presentation">
+  <a class="ui-tabs-anchor" href="{{ request.prefix }}/inbox/" target="_self">{% trans "inbox"|capfirst %}</a>
+</li>
+<li role="presentation">
+  <a class="ui-tabs-anchor" href="{{ request.prefix }}/data/common/follower/" target="_self">{% trans "following"|capfirst %}</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="content-main">
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+{% if inbox %}
+<table class="table table-condensed table-hover">
+<thead style="display: table-header-group;">
+<tr>
+<td>
+  <input id="markMessages" type="checkbox" onclick="selectAll(this)" data-toggle="tooltip"
+    data-original="{% trans "Select/unselect all messages" %}" data-placement="bottom">
+</td>
+<td class="aligncenter">
+  <button class="btn btn-xs btn-primary" data-toggle="tooltip" onclick="markMessageRead(null, 'R')"
+    data-original-title="Mark selected messages read" data-placement="bottom">
+    <i class="fa fa-envelope-open-o"></i>
+  </button>&nbsp;
+  <button class="btn btn-xs btn-primary" data-toggle="tooltip" onclick="markMessageRead(null, 'U')"
+    data-original-title="Mark selected messages unread" data-placement="bottom">
+    <i class="msg-status fa fa-envelope-o"></i>
+  </button>&nbsp;
+  <button class="btn btn-xs btn-primary" data-toggle="tooltip" onclick="markMessageRead(null, 'D')"
+    data-original-title="Delete selected messages" data-placement="bottom">
+    <i class="msg-status fa fa-trash"></i>
+  </button>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</thead>
+<tbody id="messagelist">
+{% for notif in inbox %}
+<tr data-message="{{ notif.id }}" onclick="selectMessage(event, this)">
+<td><input type="checkbox" onclick="selectMessage(event, this)"></label></td>
+<td class="aligncenter msg-status">
+  {% if notif.status == "R" %}
+  <span class="btn btn-xs fa fa-envelope-open-o" onclick="markMessageRead(this)" data-toggle="tooltip"
+    data-original-title="{% trans "Mark message unread" %}" data-placement="bottom"></span>
+  {% else %}
+  <span class="btn btn-xs fa fa-envelope-o" onclick="markMessageRead(this)" data-toggle="tooltip"
+    data-original-title="{% trans "Mark message read" %}" data-placement="bottom"></span>
+  {% endif %}
+</td>
+<td><i class="fa {% if notif.comment.type == "add" %}fa-plus
+{% elif notif.comment.type == "change" %}fa-pencil
+{% elif notif.comment.type == "delete" %}fa-minus
+{% elif notif.comment.type == "comment" %}fa-comment-o
+{% elif notif.comment.type == "follower" %}fa-users
+{% endif %}"></i>&nbsp;
+<span class="small">{{ notif.comment.content_type.name | capfirst}}</span>&nbsp;
+<a class="underline" href="{{ request.prefix }}{{ notif.comment.getURL }}">{{ notif.comment.object_repr }}</a></td>
+<td>{% if notif.comment.safe %}{{notif.comment.comment|safe}}{% else %}{{notif.comment.comment}}{% endif %}</td>
+<td>{% if notif.comment.attachment %}
+  <a style="text-decoration: underline" href="{{ notif.comment.attachment.url }}" target="_blank">{{ notif.comment.attachment.name | extension }}&nbsp;<i class="fa fa-paperclip"></i></a>
+  {% endif %}</td>
+<td>
+  <span data-toggle="tooltip" data-original-title="{{ notif.comment.user.get_full_name }}">
+  {% if notif.comment.user.avatar %}<img class="avatar-sm" src="/uploads/{{ notif.comment.user.avatar }}">{% endif %}
+  {{ notif.comment.user.username }}
+  </span>
+</td>
+<td><span data-toggle="tooltip" data-original-title="{{ notif.comment.lastmodified|date:"DATETIME_FORMAT" }}">{{ notif.comment.lastmodified | timesince }}</span></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% elif empty %}
+<div class="panel-body">
+<h2>Your inbox is empty</h2>
+<br>
+All reports where you edit or review an object have a follow button in the upper right corner.<br>
+<br>
+You will get messages in your inbox when there is any activity on objects you follow.<br>
+<br>
+<img style="border-radius: 10px; max-width: 180px" src="/static/img/inbox_and_following.png">
+<br>
+</div>
+{% else %}
+<div class="panel-body">
+<div class="pull-left"><i class="fa fa-5x fa-trophy" style="color: gold"></i>&nbsp;&nbsp;</div>
+<h2>Congrats!</h2>
+You read all messages.
+</div>
+{% endif %}
+</div>
+
+{% if inbox %}
+<nav>
+<div class="text-center">
+<ul class="pagination">
+  <li>
+    <a href="?page={% if inbox.has_previous %}{{ inbox.previous_page_number }}{% else %}1{% endif %}" aria-label="Previous">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </a>
+  </li>
+  {% for p in inbox.paginator.page_range %}
+  <li{% if inbox.number == p %} class="active"{% endif %}>
+    <a href="?page={{ p }}">{{ p }}</a>
+  </li>
+  {% endfor %}
+  <li>
+    <a href="?page={% if inbox.has_next %}{{ inbox.next_page_number }}{% else %}{{ inbox.paginator.num_pages}}{% endif %}" aria-label="Next">
+    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+</div>
+</nav>
+{% endif %}
+</div>
+{% endblock %}
