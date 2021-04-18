@@ -29,4 +29,4 @@ jobs:
         pip install -r requirements.txt
     - name: Test
       run: |
-        frepplectl test --verbosity=2
+        ./frepplectl.py test --verbosity=2
