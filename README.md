@@ -15,7 +15,11 @@ applications with a low code, short learning curve approach.
 
 **Source code**: https://github.com/frePPLe/frepple-data-admin
   
-**Mailing list**: https://github.com/frePPLe/frepple-data-admin/discussions
+**User forum**: https://github.com/frePPLe/frepple-data-admin/discussions
+
+**Documentation**: https://frepple-data-admin.readthedocs.io/en/latest/
+
+**Release notes**: https://frepple-data-admin.readthedocs.io/en/latest/release-notes.html
 
 ## Features
 
