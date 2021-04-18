@@ -27,6 +27,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Start PostgreSQL
+      run: |
+        sudo systemctl start postgresql.service
+        pg_isready
+        sudo -u postgres psql --command="create role frepple with login superuser password 'frepple'" --command="\du"        
     - name: Test
       run: |
         python frepplectl.py test --verbosity=2
