@@ -29,7 +29,7 @@ jobs:
         pip install -r requirements.txt
     - name: Start PostgreSQL
       run: |
-        cat /etc/postgresql/*/main/pg_hba.conf
+        sudo cat /etc/postgresql/*/main/pg_hba.conf
         sudo sed -i 's/local\(\s*\)all\(\s*\)all\(\s*\)peer/local\1all\2all\3\md5/g' /etc/postgresql/*/main/pg_hba.conf
         sudo systemctl start postgresql.service
         pg_isready
