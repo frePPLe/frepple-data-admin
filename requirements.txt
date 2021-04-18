@@ -20,3 +20,5 @@ psycopg2
 # Additional packages for development environments
 # black >= 19.3b0
 # Sphinx
+# build
+# twine
