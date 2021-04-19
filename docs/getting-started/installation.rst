@@ -24,24 +24,15 @@ You will need:
 Install the Python package
 --------------------------
 
-The installation is straightforward with pip, the Python package manager:
+Download the source code from github https://github.com/frePPLe/frepple-data-admin
+into a local folder on your machine.
+
+Open a command prompt in that folder and install the third party Python
+packages data-admin depends on. Using a Python virtual environment is supported. 
 
 .. code-block:: none
-
-    pip3 install data-admin
-
-Alternatively, you run from the source by cloning the git repository. In this
-case, you need to install some Python packages yourself.
-
-.. code-block:: none
-
-    git clone https://github.com/frePPLe/frepple-data-admin.git data-admin
-    
-    cd data-admin
     
     pip3 install -r requirements.txt
-
-Using a Python virtual environment is supported.
 
 
 .. _install_dbuser:

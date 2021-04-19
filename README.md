@@ -2,6 +2,7 @@
 [![Documentation Status](https://readthedocs.org/projects/frepple-data-admin/badge/?version=latest)](https://frepple-data-admin.readthedocs.io/en/latest/?badge=latest)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/frePPLe/frepple-data-admin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/frePPLe/frepple-data-admin/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/frePPLe/frepple-data-admin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/frePPLe/frepple-data-admin/context:javascript)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
 # frePPLe data admin
 
