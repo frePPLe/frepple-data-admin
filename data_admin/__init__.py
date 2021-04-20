@@ -93,3 +93,30 @@ def runFunction(func, *args, **kwargs):
     mod_name, func_name = func.rsplit(".", 1)
     mod = importlib.import_module(mod_name)
     getattr(mod, func_name).start(*args, **kwargs)
+
+
+def execute_from_command_line(argv=None):
+    import os
+    import sys
+
+    # Initialize django
+    if "DJANGO_SETTINGS_MODULE" not in os.environ:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "data_admin.settings")
+    try:
+        import django
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable?"
+        ) from exc
+    django.setup()
+
+    # Synchronize the scenario table with the settings
+    from data_admin.common.models import Scenario
+
+    Scenario.syncWithSettings()
+
+    # Run the command
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
