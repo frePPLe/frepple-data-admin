@@ -1,0 +1,4 @@
+graft data_admin
+graft data_admin_examples
+global-exclude __pycache__
+global-exclude *.py[co]
