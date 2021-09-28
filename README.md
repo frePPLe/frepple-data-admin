@@ -6,6 +6,11 @@
 
 # frePPLe data admin
 
+:warning: **This repository is no longer maintained.**
+
+:warning: The frepple project continues using, developing and maintaining the framework. However splitting the data maintenance functionality as a separate project didn't spark the interest and collaboration we had hoped for. Too bad, but let's move on...
+
+
 A django-based framework for rapid development of data management applications.
 
 Spreadsheet are omnipresent in any company. When the process grows beyond the limits 
